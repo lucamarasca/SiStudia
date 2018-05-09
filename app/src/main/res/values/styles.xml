@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBarStyle</item>
+        <item name="colorPrimary">@color/grigio_scuro</item>
+        <item name="colorPrimaryDark">@color/grigio_scuro</item>
+        <item name="colorAccent">@color/celeste_scuro</item>
+    </style>
+
+    <style name="MyActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/celeste_chiaro</item>
+    </style>
+
+
+
+    <style name="ActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/grigio_scuro</item>
+        <item name="colorPrimaryDark">@color/grigio_scuro</item>
+        <item name="android:title">"DeBox</item>
+    </style>
+
+
+
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/grigio_scuro</item>
+        <item name="colorPrimaryDark">@color/grigio_scuro</item>
+        <item name="colorAccent">@color/celeste_scuro</item>
+    </style>
+
+
+
+    <style name="SwitchTextAppearance">
+        <item name="android:textColor">@color/grigio_scuro</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+
+
+    <!-- https://github.com/yarolegovich/LovelyDialog/blob/master/sample/src/main/res/values/styles.xml -->
+    <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#212121</item>
+    </style>
+
+
+</resources>
+

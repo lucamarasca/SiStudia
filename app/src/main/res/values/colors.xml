@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nero">#000000</color>
+    <color name="bianco">#FFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!--color name="grigio_chiario">#d8d8d9</color-->
+    <color name="grigio_chiario">#e6e6e6</color>
+    <color name="grigio_scuro">#4d4d4d</color>
+    <color name="celeste_scuro">#ff0099cc</color>
+    <color name="celeste_chiaro">#b6e7f7</color>
+
+    <color name="rosso_chiaro">#b40000</color>
+    <color name="verde_chiaro">#00b400</color>
+
+    <color name="verde_iccs">#b2c923</color>
+    <color name="rosso">#ffff2323</color>
+    <color name="arancio">#ffffb230</color>
+
+    <color name="sicare_celeste">#01a2e7</color>
+    <color name="sicare_verde">#b2c923</color>
+
+
+    <color name="rosso_scuro">#a94442</color>
+    <color name="verde_scuro">#3c763d</color>
+    <color name="arancione">#ff8000</color>
+
+    <color name="verde_switch">#64ff64</color>
+    <color name="rosso_switch">#ff6464</color>
+
+
+
+    <!-- COLORE PRIMARIO -->
+    <color name="primary_color">@color/celeste_scuro</color>
+
+    <!-- COLORE SECONDARIO -->
+    <color name="secondary_color">@color/bianco</color>
+
+    <!-- COLORE SECONDARIO: da applicare su sfondo bianco #FFF -->
+    <color name="tertiary_color">@color/grigio_scuro</color>
+
+</resources>

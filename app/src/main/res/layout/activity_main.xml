@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0080ab"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/btn_ritiro_libri"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="148dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/oval"
+        android:text="Ritiro Libri"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_profilo"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ordini"
+        app:layout_constraintVertical_bias="0.632" />
+
+
+    <Button
+        android:id="@+id/btn_ordini"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/oval"
+        android:text="I miei ordini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

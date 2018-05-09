@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SistudiaLoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layoutSischool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+
+                <!--
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:src="@mipmap/ic_launcher"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/app_name"
+                    android:textSize="35dp"
+                    android:id="@+id/simeal_lbl"
+                    android:textColor="@color/grigio_scuro"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/imageView"
+                    android:layout_alignBottom="@+id/imageView"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="V "
+                    android:id="@+id/simeal_version"
+                    android:textColor="@color/grigio_scuro"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/simeal_lbl"
+                    android:layout_alignBottom="@+id/imageView"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"/>
+                -->
+
+                <TextView
+                    android:id="@+id/tvAppName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/grigio_scuro"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/simeal_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvAppName"
+                    android:layout_marginTop="5dp"
+                    android:text="V "
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/grigio_scuro"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/listview_shadow"
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/tvAccedi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/celeste_scuro"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Accedi con il tuo account"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/bianco"
+                    android:textStyle="bold" />
+
+                <!--TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Username"
+                    android:id="@+id/tvUsername"
+                    android:textColor="@color/grigio_scuro"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    /-->
+
+                <AutoCompleteTextView
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:hint="username"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="" />
+                <!--android:text="gltvni73b03i608c"-->
+
+                <!--TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Password"
+                    android:id="@+id/tvPassword"
+                    android:textColor="@color/grigio_scuro"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    /-->
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toLeftOf="@+id/iv_show_pass"
+                        android:hint="password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="" />
+
+                    <ImageView
+                        android:id="@+id/iv_show_pass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:padding="10dp"
+                        />
+
+                </RelativeLayout>
+
+
+                <CheckBox
+                    android:id="@+id/checkCredenziali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Ricorda credenziali"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/btnRecuperaPassword"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight=".5"
+                        android:background="@color/bianco"
+                        android:text="Recupera&#10;password"
+                        android:textColor="@color/grigio_scuro"
+                        android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/btnLogin"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight=".5"
+                        android:background="@android:color/holo_blue_light"
+                        android:text="Accedi"
+                        android:textColor="@android:color/background_light"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
