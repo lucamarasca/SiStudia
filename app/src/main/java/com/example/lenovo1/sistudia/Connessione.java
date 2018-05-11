@@ -16,7 +16,7 @@ public class Connessione extends AsyncTask<String, String, String> {
 
     List<ConnessioneListener> listeners;
 
-    // This is a constructor that allows you to pass in the JSON body
+    // Costruttore che prende i dati e li mette in un arraylist (In questo modo posso passare un jsonObject formato da quanti campi voglio e non devo fare dumila metodi)
     public Connessione(JSONObject postData, String requestType) {
         this.requestType = requestType;
         this.listeners = new ArrayList<>();
@@ -25,14 +25,14 @@ public class Connessione extends AsyncTask<String, String, String> {
         }
     }
 
-    // This is a function that we are overriding from AsyncTask. It takes Strings as parameters because that is what we defined for the parameters of our async task
+    // Metodo che starta un task asincrono e che avvia la connessione con il server (viene invocato tramite "execute()")
     @Override
     protected String doInBackground(String... params) {
         try {
-            // This is getting the url from the string we passed in
+            // in params[0] c'è l'indirizzo della pagina php
             URL url = new URL(params[0]);
 
-            // Create the urlConnection
+            // Creo la Url Connection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.setDoInput(true);
@@ -42,7 +42,8 @@ public class Connessione extends AsyncTask<String, String, String> {
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestMethod(requestType);
             urlConnection.setConnectTimeout(10000);
-            // Send the post body
+
+            // Invio il JsonObject al server
             if (this.postData != null) {
                 OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
                 writer.write(postData.toString());
@@ -84,7 +85,8 @@ public class Connessione extends AsyncTask<String, String, String> {
     public void addListener(ConnessioneListener listener) {
         listeners.add(listener);
     }
-
+    //Metodo che viene chiamato DOPO aver ricevuto la risposta dal server
+    //Ad ogni listner invia la risposta.
     @Override
     protected void onPostExecute(String result){ // Result è lo status code di ritorno
         for (ConnessioneListener listener: listeners)
@@ -131,3 +133,9 @@ public class Connessione extends AsyncTask<String, String, String> {
         return result;
     }
 }
+/*
+    <?php
+            $json = file_get_contents('php://input');	//Prende i dati passati com JSONObject
+            $obj = json_decode($json);	//Trasforma oggetto json in array
+            echo $json;
+    ?> */

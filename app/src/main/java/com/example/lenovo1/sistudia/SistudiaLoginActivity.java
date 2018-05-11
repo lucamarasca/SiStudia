@@ -31,8 +31,10 @@ import java.security.NoSuchAlgorithmException;
 import static java.lang.System.in;
 
 public class SistudiaLoginActivity extends AppCompatActivity implements  ConnessioneListener {
-    private ProgressDialog caricamento = null;
-    private AutoCompleteTextView etUsername;
+
+    private ProgressDialog caricamento = null;  //Progress dialog di caricamento
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         });
     }
 
-    //Metodo che prende
+    //Metodo che prende i dati delle textview le elabora per poi chiamare il metodo che invia i dati al server
     public void Login()
     {
 
@@ -65,7 +67,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         TextView pswd = (TextView) findViewById(R.id.password);
         String username = user.getText().toString();
         String password = pswd.getText().toString();
-        try {
+       /* try {
             password = SHA1(password);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -75,7 +77,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Riscontrati problemi nell' hashing della password.", Toast.LENGTH_LONG).show();
             return;
-        }
+        } */
 
         sendDataForLogin(username, password);
 
@@ -87,6 +89,8 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
 
     }
 
+    //Crea un oggetto JSON con username e password e instanzia un oggetto di tipo connessione per comunicare con il server
+    //Aggiunge aggiunge un listner e avvia la connessione
     private void sendDataForLogin(String username, String password) {
         // Avverto l'utente del tentativo di invio dei dati di login al server
         caricamento = ProgressDialog.show(SistudiaLoginActivity.this, "Login in corso",
@@ -115,7 +119,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         sha1hash = md.digest();
         return convertToHex(sha1hash);
     }
-
+    //Converte in esadecimale (usato per la conversione SHA1)
     private static String convertToHex(byte[] data) {
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < data.length; i++) {
@@ -132,9 +136,37 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         }
         return buf.toString();
     }
-
+    //Metodo in cui è contenuta la risposta del server
     @Override
     public void ResultResponse(String responseCode, String result) {
+        String message;
+        // Estraggo i miei dati restituiti dal server
+        try {
+            JSONObject token = new JSONObject(result);
+            JSONObject autistajs = new JSONObject(token.getString("autista"));
+            JSONObject carta;
 
+            Parametri.Token = token.getString("token");
+            Parametri.id = autistajs.getString("id");
+
+
+            message = "Benvenuto " + Parametri.nome + ".";
+
+
+
+        } catch (Exception e) {
+            message = "Errore di risposta del server.";
+
+            caricamento.dismiss();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), SistudiaLoginActivity.class));
+            return;
+        }
+
+
+        caricamento.dismiss();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 }
