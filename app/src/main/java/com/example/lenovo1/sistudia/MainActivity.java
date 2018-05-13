@@ -3,6 +3,9 @@ package com.example.lenovo1.sistudia;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +19,13 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout dl ;
     private ActionBarDrawerToggle action_bar;
+    FragmentTransaction fragmentTransaction;
+    NavigationView navigationView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,24 +37,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dl.addDrawerListener(action_bar);
         action_bar.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        Button btn_ordini = (Button) findViewById(R.id.btn_ordini); //Prendo l'oggetto bottone login
-        Button btn_ritiro_libri = (Button) findViewById(R.id.btn_ritiro_libri); //Prendo l'oggetto bottone recupa password
-
-        btn_ordini.setOnClickListener(new View.OnClickListener() {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_conteiner,new SistudiaMainFragment());
+        fragmentTransaction.commit();
+        navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                VisualizzaOrdini();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+               switch(item.getItemId())
+               {
+                   case R.id.nav_home:
+                   {
+                       fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                       fragmentTransaction.replace(R.id.main_conteiner, new SistudiaMainFragment());
+                       fragmentTransaction.commit();
+                       getSupportActionBar().setTitle("Home");
+                       item.setChecked(true);
+                       dl.closeDrawers();
+                       break;
+                   }
+                   case R.id.nav_impostazioni:
+                   {
+                       fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                       fragmentTransaction.replace(R.id.main_conteiner, new SistudiaFragmentImpostazioni());
+                       fragmentTransaction.commit();
+                       getSupportActionBar().setTitle("About Us");
+                       item.setChecked(true);
+                       dl.closeDrawers();
+                       break;
+                   }
+                   case R.id.nav_informazioni:
+                   {
+                       fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                       fragmentTransaction.replace(R.id.main_conteiner, new SistudiaFragmentInformazioni());
+                       fragmentTransaction.commit();
+                       getSupportActionBar().setTitle("About Us");
+                       item.setChecked(true);
+                       dl.closeDrawers();
+                       break;
+                   }
+                   case R.id.nav_logout:
+                   {
+                       // definisco l'intenzione di aprire l'Activity "Page1.java"
+                       Intent activity = new Intent(MainActivity.this,SistudiaLoginActivity.class);
+                       startActivity(activity);
+                       dl.closeDrawers();
+                       MainActivity.this.finish();
+                       break;
+                   }
+               }
+                return true;
             }
         });
-        //Se clicco sul bottone "Recupera Password", chiamo la funzione per recuperare la password
-        btn_ritiro_libri.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               RitiroLibri();
-            }
-        });
+
+
     }
 
     @Override
@@ -68,23 +111,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    public void VisualizzaOrdini()
-    {
-        // definisco l'intenzione di aprire l'Activity "Page1.java"
-        Intent openPage1 = new Intent(MainActivity.this,MieiOrdini.class);
-        // passo all'attivazione dell'activity page1.java
-        startActivity(openPage1);
-    }
-    public void RitiroLibri()
-    {
-        // definisco l'intenzione di aprire l'Activity "Page1.java"
-        Intent openPage1 = new Intent(MainActivity.this,RitiroLibri.class);
-        // passo all'attivazione dell'activity page1.java
-        startActivity(openPage1);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
 }
+/*
+<?php
+$json = file_get_contents('php://input');	//Prende i dati passati com JSONObject
+$obj = json_decode($json);	//Trasforma oggetto json in array
+$username = $obj["username"];
+$password = $obj["password"];
+echo $json;
+?>
+ */

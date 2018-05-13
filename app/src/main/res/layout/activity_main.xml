@@ -4,74 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0080ab"
     android:id="@+id/Drawer"
     tools:context=".MainActivity"
-    >
 
-    <android.support.constraint.ConstraintLayout
+    >
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_ritiro_libri"
-            android:layout_width="122dp"
-            android:layout_height="122dp"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/icona_ritiro_libri"
-
-            android:paddingLeft="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_ordini" />
+        android:id= "@+id/main_conteiner">
 
 
-        <Button
-            android:id="@+id/btn_ordini"
-            android:layout_width="122dp"
-            android:layout_height="122dp"
-            android:layout_marginEnd="128dp"
-            android:layout_marginRight="128dp"
-            android:layout_marginTop="84dp"
-            android:background="@drawable/icona_carrello"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="155dp"
-            android:layout_marginRight="155dp"
-            android:layout_marginTop="16dp"
-            android:text="I miei Ordini"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_ordini" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="160dp"
-            android:layout_marginRight="160dp"
-            android:layout_marginTop="16dp"
-            android:text="Ritiro Libri"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_ritiro_libri" />
-
-    </android.support.constraint.ConstraintLayout>
-
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer">
+        app:menu="@menu/activity_main_drawer"
+        android:id="@+id/navigation_view">
 
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
