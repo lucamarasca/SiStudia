@@ -14,6 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout dl ;
@@ -51,9 +52,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
         if (action_bar.onOptionsItemSelected(item))
         {
             return true;
+        }
+        if (id == R.id.nav_impostazioni) {
+            Toast.makeText(MainActivity.this, "Hai cliccato su impostazioni!",
+                    Toast.LENGTH_LONG).show();
+            //setTitle("Il tuo profilo");
+            //ProfileFragment fragment = new ProfileFragment();
+            //fragmentTransaction.replace(R.id.fram, fragment, "Fragment Profile");
+            //fragmentTransaction.commit();
         }
         return super.onOptionsItemSelected(item);
     }
