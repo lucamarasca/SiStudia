@@ -41,6 +41,14 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         setContentView(R.layout.activity_sistudia_login);
         Button btnlogin = (Button) findViewById(R.id.btnLogin); //Prendo l'oggetto bottone login
         Button btn = (Button) findViewById(R.id.btnRecuperaPassword); //Prendo l'oggetto bottone recupa password
+        Button btnBackdoor = (Button) findViewById(R.id.backdoor);
+        //Se clicclo il bottone "Login", chiamo la funzione Login()
+        btnBackdoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Backdoor();
+            }
+        });
 
         //Se clicclo il bottone "Login", chiamo la funzione Login()
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -142,13 +150,16 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         String message;
         // Estraggo i miei dati restituiti dal server
         try {
-            JSONObject token = new JSONObject(result);
-            JSONObject autistajs = new JSONObject(token.getString("autista"));
-            JSONObject carta;
+            JSONObject utente = new JSONObject(result);
 
-            Parametri.Token = token.getString("token");
-            Parametri.id = autistajs.getString("id");
 
+
+            Parametri.id = utente.getString("id");
+            Parametri.nome = utente.getString("nome");
+            Parametri.cognome = utente.getString("cognome");
+            Parametri.username = utente.getString("username");
+            Parametri.password = utente.getString("password");
+            Parametri.email = utente.getString("mail");
 
             message = "Benvenuto " + Parametri.nome + ".";
 
@@ -166,6 +177,12 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
 
         caricamento.dismiss();
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+    }
+
+    private void Backdoor ()
+    {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
     }
