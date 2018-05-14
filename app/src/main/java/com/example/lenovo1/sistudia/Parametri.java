@@ -22,7 +22,7 @@ public class Parametri {
     static String cognome = null;
     static String data_nascita = null;
     static String telefono = null;
-
+    static List<Ordine> ordinieffettutati = null;
 
 
 

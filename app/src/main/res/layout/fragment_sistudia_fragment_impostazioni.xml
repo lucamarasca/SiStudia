@@ -1,20 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SistudiaFragmentImpostazioni"
-    android:background="#0080ab">
+    android:background="#0080ab"
+    tools:context=".SistudiaFragmentImpostazioni">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:icon="@drawable/icona_opzioni"
-        android:text="Impostazioni"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView.SpinnerItem"
-        android:textSize="30dp" />
+        android:layout_height="wrap_content"
+        app:layout_anchor="@+id/scrollView2"
+        app:layout_anchorGravity="bottom|center">
 
-</FrameLayout>
+        <RelativeLayout
+            android:id="@+id/layout_impostazioni"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="34dp"
+                android:text="Impostazioni" />
+
+            <ImageView
+                android:id="@+id/image_books"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="left"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/icona_opzioni"
+                android:scaleType="fitXY" />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="219dp"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textView3"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="130dp"
+                android:layout_marginEnd="-66dp"
+                android:text="Notifiche" />
+            <!--Only for padding-->
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

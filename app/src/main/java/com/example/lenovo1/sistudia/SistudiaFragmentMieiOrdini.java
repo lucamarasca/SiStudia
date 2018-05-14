@@ -3,11 +3,17 @@ package com.example.lenovo1.sistudia;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -28,9 +34,37 @@ public class SistudiaFragmentMieiOrdini extends Fragment implements  Connessione
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getOrdini();
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sistudia_fragment_miei_ordini, container, false);
+        // Creo delle view dinamiche per scrivere dentro gli ordini
+        View view = inflater.inflate(R.layout.fragment_sistudia_fragment_miei_ordini, container, false);
+        //View linearLayout = view.findViewById(R.id.linearInternalBook);
+                TextView[] viewPrenotazioni = new TextView[Parametri.ordinieffettutati.size()];
+                View linearLayout = view.findViewById(R.id.layout_ordini);
+
+                for (int i = 0; i < Parametri.ordinieffettutati.size(); i++) {
+                    viewPrenotazioni[i] = new TextView(view.getContext());
+                    viewPrenotazioni[i].setText("Ordine");
+                    viewPrenotazioni[i].setId(i);
+                   // viewPrenotazioni[i].setBackgroundResource(R.drawable.roundedtextboxactive);
+                   // viewPrenotazioni[i].setPaddingRelative(4, 8, 4, 8);
+                    viewPrenotazioni[i].setTextSize(19);
+                   // viewPrenotazioni[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    viewPrenotazioni[i].setTextColor(Color.BLACK);
+
+                    LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    param.setMargins(0, 0, 0, 32);
+
+                    viewPrenotazioni[i].setLayoutParams(param);
+
+                    ((LinearLayout) linearLayout).addView(viewPrenotazioni[i]);
+                }
+
+        return view;
     }
+
+
     public void getOrdini(){
         // Avverto l'utente del tentativo di invio dei dati di login al server
         caricamento = ProgressDialog.show(getActivity(), "Cerco i tuoi ordini!",
@@ -57,7 +91,7 @@ public class SistudiaFragmentMieiOrdini extends Fragment implements  Connessione
     @Override
     public void ResultResponse(String responseCode, String result) {
         String message;
-        Ordine [] ordini  = new Ordine[10];
+
         //Se L'utente non viene trova all' interno del DB
         if (result == null || result.equals("null") || result.equals("\n\n\n"))
         {
