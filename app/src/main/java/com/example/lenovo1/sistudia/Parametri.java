@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Parametri {
     // Dati server e connessione
-    static String IP = "http://192.168.1.10/sistudia/login.php";
+    static String IP = "http://192.168.1.129/iccs/sistudia_android";
 
     static String Token = null;
     static File login_file;

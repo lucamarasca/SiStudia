@@ -75,18 +75,9 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         TextView pswd = (TextView) findViewById(R.id.password);
         String username = user.getText().toString();
         String password = pswd.getText().toString();
-       /* try {
-            password = SHA1(password);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Riscontrati problemi nell' hashing della password.", Toast.LENGTH_LONG).show();
-            return;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Riscontrati problemi nell' hashing della password.", Toast.LENGTH_LONG).show();
-            return;
-        } */
-
+        //Cripta la password in md5
+        password = md5(password);
+        //Metodo che invia i dati di login appena presi al server
         sendDataForLogin(username, password);
 
     }
@@ -116,53 +107,59 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
 
         Connessione conn = new Connessione(postData, "POST");
         conn.addListener(this);
-        conn.execute(Parametri.IP + "/login");
+        //In Parametri.IP c'è la path a cui va aggiunta il nome della pagina.php
+        conn.execute(Parametri.IP + "/SistudiaLoginAndroid.php");
     }
 
-    // Criptazione SHA1
-    public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] sha1hash;
-        md.update(text.getBytes("iso-8859-1"), 0, text.length());
-        sha1hash = md.digest();
-        return convertToHex(sha1hash);
-    }
-    //Converte in esadecimale (usato per la conversione SHA1)
-    private static String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                if ((0 <= halfbyte) && (halfbyte <= 9)) {
-                    buf.append((char) ('0' + halfbyte));
-                } else {
-                    buf.append((char) ('a' + (halfbyte - 10)));
-                }
-                halfbyte = data[i] & 0x0F;
-            } while (two_halfs++ < 1);
+    //Metodo che cripta in MD5
+    public static final String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-        return buf.toString();
+        return "";
     }
     //Metodo in cui è contenuta la risposta del server
     @Override
     public void ResultResponse(String responseCode, String result) {
         String message;
+        //Se L'utente non viene trova all' interno del DB
+        if (result == null || result.equals("null") || result.equals("\n\n\n"))
+        {
+            message = "Utente non trovato.";
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            caricamento.dismiss();
+            return;
+        }
         // Estraggo i miei dati restituiti dal server
         try {
             JSONObject utente = new JSONObject(result);
-
-
-
             Parametri.id = utente.getString("id");
             Parametri.nome = utente.getString("nome");
             Parametri.cognome = utente.getString("cognome");
-            Parametri.username = utente.getString("username");
+            Parametri.username = utente.getString("user");
             Parametri.password = utente.getString("password");
             Parametri.email = utente.getString("mail");
+            Parametri.telefono = utente.getString("cellulare");
 
             message = "Benvenuto " + Parametri.nome + ".";
-
 
 
         } catch (Exception e) {
@@ -173,7 +170,6 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
             startActivity(new Intent(getApplicationContext(), SistudiaLoginActivity.class));
             return;
         }
-
 
         caricamento.dismiss();
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
