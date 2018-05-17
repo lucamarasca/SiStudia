@@ -16,13 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SistudiaFragmentMieiOrdini extends Fragment implements  ConnessioneListener{
+public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack implements  ConnessioneListener{
     private ProgressDialog caricamento = null;  //Progress dialog di caricamento
 
     public SistudiaFragmentMieiOrdini() {
@@ -36,31 +37,55 @@ public class SistudiaFragmentMieiOrdini extends Fragment implements  Connessione
         getOrdini();
         // Creo delle view dinamiche per scrivere dentro gli ordini
         View view = inflater.inflate(R.layout.fragment_sistudia_fragment_miei_ordini, container, false);
-        //View linearLayout = view.findViewById(R.id.linearInternalBook);
-                TextView[] viewPrenotazioni = new TextView[Parametri.ordinieffettutati.size()];
-                View linearLayout = view.findViewById(R.id.layout_ordini);
+        if (Parametri.ordinieffettutati != null) {
+            TextView[] viewPrenotazioni = new TextView[Parametri.ordinieffettutati.size()];
+            View linearLayout = view.findViewById(R.id.prenotazioni);
 
-                for (int i = 0; i < Parametri.ordinieffettutati.size(); i++) {
-                    viewPrenotazioni[i] = new TextView(view.getContext());
-                    viewPrenotazioni[i].setText("Ordine");
-                    viewPrenotazioni[i].setId(i);
-                   // viewPrenotazioni[i].setBackgroundResource(R.drawable.roundedtextboxactive);
-                   // viewPrenotazioni[i].setPaddingRelative(4, 8, 4, 8);
-                    viewPrenotazioni[i].setTextSize(19);
-                   // viewPrenotazioni[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    viewPrenotazioni[i].setTextColor(Color.BLACK);
+            for (int i = 0; i < Parametri.ordinieffettutati.size(); i++) {
+                viewPrenotazioni[i] = new TextView(view.getContext());
+                viewPrenotazioni[i].setText("Ordine");
+                viewPrenotazioni[i].setId(i);
+                viewPrenotazioni[i].setBackgroundResource(R.drawable.background_menu);
+                viewPrenotazioni[i].setPaddingRelative(4, 8, 4, 8);
+                viewPrenotazioni[i].setTextSize(19);
+                viewPrenotazioni[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                viewPrenotazioni[i].setTextColor(Color.BLACK);
 
-                    LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    param.setMargins(0, 0, 0, 32);
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                param.setMargins(0, 0, 0, 32);
 
-                    viewPrenotazioni[i].setLayoutParams(param);
+                viewPrenotazioni[i].setLayoutParams(param);
 
-                    ((LinearLayout) linearLayout).addView(viewPrenotazioni[i]);
-                }
+                ((LinearLayout) linearLayout).addView(viewPrenotazioni[i]);
+            }
+        }
+        else
+        {
+            TextView viewPrenotazioni = new TextView(view.getContext());
+            View linearLayout = view.findViewById(R.id.prenotazioni);
 
+
+                viewPrenotazioni.setText("Nessun Ordine trovato.");
+                viewPrenotazioni.setPaddingRelative(4, 8, 4, 8);
+                viewPrenotazioni.setTextSize(19);
+                viewPrenotazioni.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                viewPrenotazioni.setTextColor(Color.BLACK);
+
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                param.setMargins(0, 0, 0, 32);
+
+                viewPrenotazioni.setLayoutParams(param);
+
+                ((LinearLayout) linearLayout).addView(viewPrenotazioni);
+
+        }
+        caricamento.dismiss();
         return view;
     }
 
@@ -101,20 +126,20 @@ public class SistudiaFragmentMieiOrdini extends Fragment implements  Connessione
         }
         // Estraggo i miei dati restituiti dal server
         try {
-
-            JSONObject utente = new JSONObject(result);
-            int numero_ordini = utente.length();
-            while (numero_ordini != 0) {
-                Ordine.id = utente.getString("id_ordine");
-                Ordine.nominativo_libraio = utente.getString("nominativo");
-                Ordine.comune = utente.getString("comune");
-                Ordine.provincia = utente.getString("provincia");
-                Ordine.indirizzo = utente.getString("indirizzo");
-                Ordine.civico = utente.getString("civico");
-                Ordine.stato_ordine = utente.getString("stato_ordine");
-                Ordine.nome_alunno = utente.getString("nominativo_alunno");
-                Ordine.data = utente.getString("data");
-                numero_ordini--;
+            JSONArray ordini = new JSONArray(result);
+            for (int i = 0; i < ordini.length(); i++)
+            {
+                JSONObject utente = new JSONObject(ordini.getString(i));
+                Parametri.ordinieffettutati.get(i).id = utente.getString("id_ordine");
+                Parametri.ordinieffettutati.get(i).id = utente.getString("id_ordine");
+                Parametri.ordinieffettutati.get(i).nominativo_libraio = utente.getString("nominativo");
+                Parametri.ordinieffettutati.get(i).comune = utente.getString("comune");
+                Parametri.ordinieffettutati.get(i).provincia = utente.getString("provincia");
+                Parametri.ordinieffettutati.get(i).indirizzo = utente.getString("indirizzo");
+                Parametri.ordinieffettutati.get(i).civico = utente.getString("civico");
+                Parametri.ordinieffettutati.get(i).stato_ordine = utente.getString("stato_ordine");
+                Parametri.ordinieffettutati.get(i).nome_alunno = utente.getString("nominativo_alunno");
+                Parametri.ordinieffettutati.get(i).data = utente.getString("data");
             }
 
         } catch (Exception e) {
@@ -122,11 +147,20 @@ public class SistudiaFragmentMieiOrdini extends Fragment implements  Connessione
 
             caricamento.dismiss();
             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getContext(), MainActivity.class));
             return;
         }
 
         caricamento.dismiss();
 
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        getActivity().setTitle("Home");
+        SistudiaMainFragment fragment = new SistudiaMainFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_conteiner, fragment, "Fragment Find Park");
+        fragmentTransaction.commit();
+        return true;
     }
 }

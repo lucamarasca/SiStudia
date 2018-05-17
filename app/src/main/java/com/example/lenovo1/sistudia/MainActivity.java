@@ -3,6 +3,7 @@ package com.example.lenovo1.sistudia;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,7 +21,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
     //Variabile del tipo di layout dell' activity
@@ -38,6 +44,11 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        FirebaseInstanceId.getInstance().getToken();
+
+
 
         //dichiaro l'actionbar
         dl = (DrawerLayout) findViewById(R.id.Drawer);
@@ -80,7 +91,7 @@ public class MainActivity extends AppCompatActivity  {
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_conteiner, new SistudiaFragmentImpostazioni());
                         fragmentTransaction.commit();
-                        getSupportActionBar().setTitle("About Us");
+                        getSupportActionBar().setTitle("Impostazioni");
                         item.setChecked(true);
                         dl.closeDrawers();
                         break;
@@ -115,6 +126,42 @@ public class MainActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.Drawer);
+        // Se il menù è aperto lo chiudo
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+            boolean handled = false;
 
+            for (Fragment f : fragmentList)
+                if (f instanceof FragmentWithOnBack) {
+                    handled = ((FragmentWithOnBack) f).onBackPressed();
 
+                    if (handled)
+                        break;
+                }
+
+            if (!handled)
+                super.onBackPressed();
+        }
+    }
 }
+
+/* DATABASE
+CREATE DATABASE FCM;
+
+USE FCM;
+
+CREATE TABLE users(
+    id int (20) NOT NULL AUTO_INCREMENT,
+    Token varchar(200) NOT NULL,
+
+    PRIMARY KEY(id),
+    UNIQUE KEY(Token));
+
+
+
+ */

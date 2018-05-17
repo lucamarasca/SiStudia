@@ -1,46 +1,77 @@
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_impostazioni"
+    tools:context=".SistudiaFragmentMieiOrdini">
+
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#0080ab"
-        tools:context=".SistudiaFragmentMieiOrdini">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <TextView
+            android:id="@+id/intestazione_impostazioni"
+            style="@style/tema_intestazione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="130dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="130dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="I miei ordini"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/immagine_ritiro_libri"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="left"
+            android:layout_marginEnd="300dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="300dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/icona_carrello"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/prenotazioni"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:id="@+id/layout_ordini"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left|center"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:text="Ecco la lista dei tuoi ordini!" />
-
-                <ImageView
-                    android:id="@+id/image_books"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="left"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/icona_carrello"
-                    android:scaleType="fitXY" />
-
-                <!--Only for padding-->
-            </RelativeLayout>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="140dp" >
 
 
-    </android.support.design.widget.CoordinatorLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

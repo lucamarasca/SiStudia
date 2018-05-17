@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "68747575219",
+    "firebase_url": "https://sistudia-e2130.firebaseio.com",
+    "project_id": "sistudia-e2130",
+    "storage_bucket": "sistudia-e2130.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68747575219:android:f37345f9b34b8935",
+        "android_client_info": {
+          "package_name": "com.example.lenovo1.sistudia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68747575219-g1h2ul51b37jpv1mnkhb20jj9ig73k8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvHKoOOzhIDX7AFdyK-TcEygyQyWyorDk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
