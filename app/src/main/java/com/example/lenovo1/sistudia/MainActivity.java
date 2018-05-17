@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity  {
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseInstanceId.getInstance().getToken();
 
+        startService(new Intent(this, Background.class));
 
 
         //dichiaro l'actionbar
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity  {
                 super.onBackPressed();
         }
     }
+
 }
 
 /* DATABASE

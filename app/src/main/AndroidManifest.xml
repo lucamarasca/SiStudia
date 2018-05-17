@@ -3,7 +3,7 @@
     package="com.example.lenovo1.sistudia">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:theme="@style/AppTheme"
         android:allowBackup="true"
@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+
         <activity android:name=".MainActivity" />
         <activity android:name=".SistudiaLoginActivity">
             <intent-filter>
