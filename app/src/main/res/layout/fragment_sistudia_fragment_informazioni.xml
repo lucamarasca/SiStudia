@@ -58,7 +58,6 @@ tools:context=".SistudiaFragmentInformazioni">
 
         <TextView
             android:id="@+id/text_informazioni"
-            style="@style/tema_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

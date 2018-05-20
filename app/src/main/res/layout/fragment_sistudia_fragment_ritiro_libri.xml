@@ -59,7 +59,6 @@ tools:context=".SistudiaFragmentRitiroLibri">
 
         <TextView
             android:id="@+id/codice_ritiro"
-            style="@style/tema_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -83,7 +82,7 @@ tools:context=".SistudiaFragmentRitiroLibri">
             android:layout_marginRight="130dp"
             android:layout_marginStart="130dp"
             android:layout_marginTop="16dp"
-            android:text="Rigenera Codice"
+            android:text="Rigenera Codice  "
             android:drawableLeft="@drawable/icona_refresh"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

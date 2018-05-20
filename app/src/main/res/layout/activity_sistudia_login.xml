@@ -23,7 +23,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp">
 
-                <!--
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -31,33 +31,6 @@
                     android:src="@mipmap/ic_launcher"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/app_name"
-                    android:textSize="35dp"
-                    android:id="@+id/simeal_lbl"
-                    android:textColor="@color/grigio_scuro"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/imageView"
-                    android:layout_alignBottom="@+id/imageView"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="V "
-                    android:id="@+id/simeal_version"
-                    android:textColor="@color/grigio_scuro"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/simeal_lbl"
-                    android:layout_alignBottom="@+id/imageView"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center_vertical"/>
-                -->
 
                 <TextView
                     android:id="@+id/tvAppName"
@@ -106,17 +79,7 @@
                     android:textColor="@color/bianco"
                     android:textStyle="bold" />
 
-                <!--TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Username"
-                    android:id="@+id/tvUsername"
-                    android:textColor="@color/grigio_scuro"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    /-->
+
 
                 <AutoCompleteTextView
                     android:id="@+id/etUsername"
@@ -129,20 +92,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="" />
-                <!--android:text="gltvni73b03i608c"-->
 
-                <!--TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Password"
-                    android:id="@+id/tvPassword"
-                    android:textColor="@color/grigio_scuro"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    /-->
 
 
                 <RelativeLayout
@@ -232,7 +182,9 @@
         android:id="@+id/backdoor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Backdoor"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="398dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>

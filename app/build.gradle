@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.lenovo1.sistudia"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -34,5 +34,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:15.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation "com.google.firebase:firebase-messaging:15.0.2"
+    implementation 'com.shuhart.stepview:stepview:1.2.7'
 }
 apply plugin: 'com.google.gms.google-services'

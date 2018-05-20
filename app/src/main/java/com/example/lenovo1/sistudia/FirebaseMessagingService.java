@@ -15,7 +15,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     }
 
     private void showNotification(String message) {
-
+        Parametri.notifica = true;
         Intent i = new Intent(this,MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -25,7 +25,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setAutoCancel(true)
                 .setContentTitle("Sistudia!")
                 .setContentText(message)
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pendingIntent);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

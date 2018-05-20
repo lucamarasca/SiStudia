@@ -1,5 +1,9 @@
 package com.example.lenovo1.sistudia;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.ComponentCallbacks2;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -24,11 +28,13 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements ConnessioneListener {
     //Variabile del tipo di layout dell' activity
     private DrawerLayout dl;
     //variabile che rappresenta l'actionbar (la barra in altro)
@@ -39,16 +45,18 @@ public class MainActivity extends AppCompatActivity  {
     NavigationView navigationView;
     //Header del navigation view
     View header ;
+    private ProgressDialog caricamento = null;  //Progress dialog di caricamento
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Setto le notifiche in background
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseInstanceId.getInstance().getToken();
+        startService(new Intent(this,Background.class));
 
-        startService(new Intent(this, Background.class));
 
 
         //dichiaro l'actionbar
@@ -57,11 +65,22 @@ public class MainActivity extends AppCompatActivity  {
         dl.addDrawerListener(action_bar);
         action_bar.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Apro il fragment Home
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_conteiner, new SistudiaMainFragment());
-        fragmentTransaction.commit();
+        if (Parametri.notifica == false) {
+            //Apro il fragment Home
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_conteiner, new SistudiaMainFragment());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("Home");
+        }else
+        {
+            //Apro il fragment Dei miei ordini
+            getOrdini();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.main_conteiner, new SistudiaFragmentMieiOrdini());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("I miei Ordini");
+            Parametri.notifica = false;
+        }
         //Inizializzo la variabile del navigationview
         navigationView = findViewById(R.id.navigation_view);
 
@@ -150,6 +169,65 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+    public void getOrdini(){
+        // Avverto l'utente del tentativo di invio dei dati di login al server
+        caricamento = ProgressDialog.show(this, "Cerco i tuoi ordini!",
+                "Connessione con il server in corso...", true);
+        caricamento.show();
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("id_utente", Parametri.id);
+
+        } catch (Exception e) {
+            caricamento.dismiss();
+            return;
+        }
+
+        Connessione conn = new Connessione(postData, "POST");
+        conn.addListener(this);
+        //In Parametri.IP c'è la path a cui va aggiunta il nome della pagina.php
+        conn.execute(Parametri.IP + "/SistudiaMieiOrdiniAndroid.php");
+
+    }
+
+    //Metodo in cui è contenuta la risposta del server
+    @Override
+    public void ResultResponse(String responseCode, String result) {
+        String message;
+
+        //Se L'utente non viene trova all' interno del DB
+        if (result == null || result.equals("null") || result.equals("\n\n\n"))
+        {
+            message = "Nessun Ordine.";
+            caricamento.dismiss();
+            return;
+        }
+        ArrayList<Ordine> par = new ArrayList<>();
+        // Estraggo i miei dati restituiti dal server
+        try {
+
+            JSONObject jsonconvert = new JSONObject(result);
+            JSONArray ordini = jsonconvert.getJSONArray("ordini");
+            Parametri.ordinieffettutati = new ArrayList<>();
+
+            for (int i = 0; i < ordini.length(); i++)
+            {
+                par.add(new Ordine(ordini.getJSONObject(i).toString()));
+            }
+
+        } catch (Exception e) {
+            message = "Errore di risposta del server.";
+
+            caricamento.dismiss();
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            return;
+        }
+        Parametri.ordinieffettutati = par;
+        caricamento.dismiss();
+
+
+    }
 }
 
 /* DATABASE
@@ -165,5 +243,105 @@ CREATE TABLE users(
     UNIQUE KEY(Token));
 
 
+MIEI ORDINI
 
+
+
+<?php
+
+$count = 0;
+
+
+$arr = array();
+$arr["ordini"] = array();
+$arr["ordini"] [$count] = array();
+$arr["ordini"] [$count]["id_ordine"] = "1";
+$arr["ordini"] [$count]["nominativo"] = "idbelloaaaa";
+$arr["ordini"] [$count]["comune"] = "aaaaaaaa";
+$arr["ordini"] [$count]["provincia"] = "aaaaaaaa";
+$arr["ordini"] [$count]["indirizzo"] = "aaaaaaaaa";
+$arr["ordini"] [$count]["civico"] = "aaaaaaaa";
+$arr["ordini"] [$count]["stato_ordine"] = "aaaaaa";
+$arr["ordini"] [$count]["nominativo_alunno"] = "aaaaaaaaaa";
+$arr["ordini"] [$count]["data"] = "aaaaaaaaaa";
+$arr["ordini"] [$count]["id_stato_ordine"] = 1;
+
+$count++;
+$arr["ordini"] [$count]["id_ordine"] = "2";
+$arr["ordini"] [$count]["nominativo"] = "idbello";
+$arr["ordini"] [$count]["comune"] = "idbello";
+$arr["ordini"] [$count]["provincia"] = "idbello";
+$arr["ordini"] [$count]["indirizzo"] = "idbello";
+$arr["ordini"] [$count]["civico"] = "idbello";
+$arr["ordini"] [$count]["stato_ordine"] = "idbello";
+$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
+$arr["ordini"] [$count]["data"] = "idbello";
+$arr["ordini"] [$count]["id_stato_ordine"] = 3;
+
+$count++;
+$arr["ordini"] [$count]["id_ordine"] = "3";
+$arr["ordini"] [$count]["nominativo"] = "idbello";
+$arr["ordini"] [$count]["comune"] = "idbello";
+$arr["ordini"] [$count]["provincia"] = "idbello";
+$arr["ordini"] [$count]["indirizzo"] = "idbello";
+$arr["ordini"] [$count]["civico"] = "idbello";
+$arr["ordini"] [$count]["stato_ordine"] = "idbello";
+$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
+$arr["ordini"] [$count]["data"] = "idbello";
+$arr["ordini"] [$count]["id_stato_ordine"] = 2;
+
+$count++;
+$arr["ordini"] [$count]["id_ordine"] = "4";
+$arr["ordini"] [$count]["nominativo"] = "nome_libraio";
+$arr["ordini"] [$count]["comune"] = "idbello";
+$arr["ordini"] [$count]["provincia"] = "idbello";
+$arr["ordini"] [$count]["indirizzo"] = "idbello";
+$arr["ordini"] [$count]["civico"] = "idbello";
+$arr["ordini"] [$count]["stato_ordine"] = "idbello";
+$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
+$arr["ordini"] [$count]["data"] = "idbello";
+$arr["ordini"] [$count]["id_stato_ordine"] = 4;
+
+$count++;
+$arr["ordini"] [$count]["id_ordine"] = "5";
+$arr["ordini"] [$count]["nominativo"] = "idbello";
+$arr["ordini"] [$count]["comune"] = "idbello";
+$arr["ordini"] [$count]["provincia"] = "idbello";
+$arr["ordini"] [$count]["indirizzo"] = "idbello";
+$arr["ordini"] [$count]["civico"] = "idbello";
+$arr["ordini"] [$count]["stato_ordine"] = "idbello";
+$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
+$arr["ordini"] [$count]["data"] = "idbello";
+$arr["ordini"] [$count]["id_stato_ordine"] = 2;
+
+$count++;
+$arr["ordini"] [$count]["id_ordine"] = "6";
+$arr["ordini"] [$count]["nominativo"] = "idbello";
+$arr["ordini"] [$count]["comune"] = "idbello";
+$arr["ordini"] [$count]["provincia"] = "idbello";
+$arr["ordini"] [$count]["indirizzo"] = "idbello";
+$arr["ordini"] [$count]["civico"] = "idbello";
+$arr["ordini"] [$count]["stato_ordine"] = "idbello";
+$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
+$arr["ordini"] [$count]["data"] = "idbello";
+$arr["ordini"] [$count]["id_stato_ordine"] = 3;
+
+echo json_encode($arr);
+
+// @$ordini->ordine->$count->id_ordine = "idbello";
+// @$ordini->ordine->$count->nominativo = "Nominativo_Libraio";
+// @$ordini->ordine->$count->comune = "comune_libraio";
+// @$ordini->ordine->$count->provincia = "provincia_libraio";
+// @$ordini->ordine->$count->indirizzo = "indirizzo_libraio";
+// @$ordini->ordine->$count->civico = "civico_libraio";
+// @$ordini->ordine->$count->stato_ordine = "stato ordine";
+// @$ordini->ordine->$count->nominativo_alunno = "idbello";
+// @$ordini->ordine->$count->data = "data";
+
+
+
+// echo json_encode($ordini);
+
+
+?>
  */

@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Parametri {
     // Dati server e connessione
-    static String IP = "http://192.168.1.129/iccs/sistudia_android";
+   // static String IP = "http://192.168.1.129/iccs/sistudia_android";
+    static String IP = "http://192.168.1.10/Sistudia/MieiOrdini.php";
 
     static String Token = null;
     static File login_file;
@@ -25,7 +26,8 @@ public class Parametri {
     static List<Ordine> ordinieffettutati = null;
 
 
-
+    //Parametri impostazioni e notifiche
+    static boolean notifica = false;
 
     static public void resetAllParametri() {
         Token = null;

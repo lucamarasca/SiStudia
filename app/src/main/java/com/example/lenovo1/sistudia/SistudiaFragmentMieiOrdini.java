@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +17,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack implements  ConnessioneListener{
-    private ProgressDialog caricamento = null;  //Progress dialog di caricamento
+public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack {
+
 
     public SistudiaFragmentMieiOrdini() {
         // Required empty public constructor
@@ -34,23 +40,32 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack implements  C
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getOrdini();
+
         // Creo delle view dinamiche per scrivere dentro gli ordini
         View view = inflater.inflate(R.layout.fragment_sistudia_fragment_miei_ordini, container, false);
         if (Parametri.ordinieffettutati != null) {
             TextView[] viewPrenotazioni = new TextView[Parametri.ordinieffettutati.size()];
+            TextView[] viewPrenotazioniData = new TextView[Parametri.ordinieffettutati.size()];
+
             View linearLayout = view.findViewById(R.id.prenotazioni);
 
             for (int i = 0; i < Parametri.ordinieffettutati.size(); i++) {
+                String ordine = "Nome Lirabio: " + Parametri.ordinieffettutati.get(i).getNominativo_libraio() + "\n";
+                ordine += "Comune Residenza Libraio: " + Parametri.ordinieffettutati.get(i).getComune() + "\n";
+                ordine += "Indirizzo Libraio: " + Parametri.ordinieffettutati.get(i).getIndirizzo() + "\n";
+                ordine += "Nome alunno: " + Parametri.ordinieffettutati.get(i).getNome_alunno() + "\n";
+                ordine += "Stato Ordine: " + Parametri.ordinieffettutati.get(i).getStato_ordine() + "\n";
                 viewPrenotazioni[i] = new TextView(view.getContext());
-                viewPrenotazioni[i].setText("Ordine");
+                viewPrenotazioni[i].setText(ordine);
                 viewPrenotazioni[i].setId(i);
-                viewPrenotazioni[i].setBackgroundResource(R.drawable.background_menu);
+                viewPrenotazioni[i].setBackgroundResource(R.drawable.background_ordini);
                 viewPrenotazioni[i].setPaddingRelative(4, 8, 4, 8);
                 viewPrenotazioni[i].setTextSize(19);
                 viewPrenotazioni[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 viewPrenotazioni[i].setTextColor(Color.BLACK);
-
+                viewPrenotazioniData[i] = new TextView(view.getContext());
+                viewPrenotazioniData[i].setText(Parametri.ordinieffettutati.get(i).getData());
+                viewPrenotazioniData[i].setPaddingRelative(200, 8, 4, 8);
                 LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
@@ -59,7 +74,48 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack implements  C
 
                 viewPrenotazioni[i].setLayoutParams(param);
 
+                //Setto la funzione da chiamare per mostrare i dettagli della prenotazione
+                    viewPrenotazioni[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int index = view.getId();
+
+                            if (index >= 0 && index < Parametri.ordinieffettutati.size()) {
+                                //passo le informazioni relative alla mia prenotazione
+                                Bundle bundle = new Bundle();
+                                //Dati generici Prenotazione
+                                bundle.putString("idPrenotazione", String.valueOf(Parametri.ordinieffettutati.get(index).getId()));
+                                bundle.putString("nominativo_alunno", String.valueOf(Parametri.ordinieffettutati.get(index).getNome_alunno()));
+                                //Dati libraio
+                                bundle.putString("nome_libraio", String.valueOf(Parametri.ordinieffettutati.get(index).getNominativo_libraio()));
+                                bundle.putString("comune", String.valueOf(Parametri.ordinieffettutati.get(index).getComune()));
+                                bundle.putString("provincia", String.valueOf(Parametri.ordinieffettutati.get(index).getProvincia()));
+                                bundle.putString("indirizzo", String.valueOf(Parametri.ordinieffettutati.get(index).getIndirizzo()));
+                                bundle.putString("civico", String.valueOf(Parametri.ordinieffettutati.get(index).getCivico()));
+                                //Dettagli prenotazione
+                                bundle.putString("data", String.valueOf(Parametri.ordinieffettutati.get(index).getData()));
+                                bundle.putString("stato_ordine", String.valueOf(Parametri.ordinieffettutati.get(index).getStato_ordine()));
+                                bundle.putString("id_stato_ordine", String.valueOf(Parametri.ordinieffettutati.get(index).getId_stato_ordine()));
+
+                                //eseguo la transazione
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                //passo i valori
+                                Detail_ordine detail_ordine = new Detail_ordine();
+                                detail_ordine.setArguments(bundle);
+                                //eseguo la transazione
+                                ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle("Dettagli Ordine");
+                                fragmentTransaction.replace(R.id.main_conteiner, detail_ordine);
+                                fragmentTransaction.addToBackStack("Le tue prenotazioni");
+                                fragmentTransaction.commit();
+                            }
+                        }
+                    });
+
+
+
                 ((LinearLayout) linearLayout).addView(viewPrenotazioni[i]);
+                ((LinearLayout) linearLayout).addView(viewPrenotazioniData[i]);
             }
         }
         else
@@ -85,78 +141,16 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack implements  C
                 ((LinearLayout) linearLayout).addView(viewPrenotazioni);
 
         }
-        caricamento.dismiss();
+
         return view;
     }
 
 
-    public void getOrdini(){
-        // Avverto l'utente del tentativo di invio dei dati di login al server
-        caricamento = ProgressDialog.show(getActivity(), "Cerco i tuoi ordini!",
-                "Connessione con il server in corso...", true);
-        caricamento.show();
 
-        JSONObject postData = new JSONObject();
-        try {
-            postData.put("id_utente", Parametri.id);
-
-        } catch (Exception e) {
-            caricamento.dismiss();
-            return;
-        }
-
-        Connessione conn = new Connessione(postData, "POST");
-        conn.addListener(this);
-        //In Parametri.IP c'è la path a cui va aggiunta il nome della pagina.php
-        conn.execute(Parametri.IP + "/SistudiaMieiOrdiniAndroid.php");
-
-    }
-
-    //Metodo in cui è contenuta la risposta del server
-    @Override
-    public void ResultResponse(String responseCode, String result) {
-        String message;
-
-        //Se L'utente non viene trova all' interno del DB
-        if (result == null || result.equals("null") || result.equals("\n\n\n"))
-        {
-            message = "Nessun Ordine.";
-            caricamento.dismiss();
-            return;
-        }
-        // Estraggo i miei dati restituiti dal server
-        try {
-            JSONArray ordini = new JSONArray(result);
-            for (int i = 0; i < ordini.length(); i++)
-            {
-                JSONObject utente = new JSONObject(ordini.getString(i));
-                Parametri.ordinieffettutati.get(i).id = utente.getString("id_ordine");
-                Parametri.ordinieffettutati.get(i).id = utente.getString("id_ordine");
-                Parametri.ordinieffettutati.get(i).nominativo_libraio = utente.getString("nominativo");
-                Parametri.ordinieffettutati.get(i).comune = utente.getString("comune");
-                Parametri.ordinieffettutati.get(i).provincia = utente.getString("provincia");
-                Parametri.ordinieffettutati.get(i).indirizzo = utente.getString("indirizzo");
-                Parametri.ordinieffettutati.get(i).civico = utente.getString("civico");
-                Parametri.ordinieffettutati.get(i).stato_ordine = utente.getString("stato_ordine");
-                Parametri.ordinieffettutati.get(i).nome_alunno = utente.getString("nominativo_alunno");
-                Parametri.ordinieffettutati.get(i).data = utente.getString("data");
-            }
-
-        } catch (Exception e) {
-            message = "Errore di risposta del server.";
-
-            caricamento.dismiss();
-            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        caricamento.dismiss();
-
-    }
 
     @Override
     public boolean onBackPressed() {
-        getActivity().setTitle("Home");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Home");
         SistudiaMainFragment fragment = new SistudiaMainFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_conteiner, fragment, "Fragment Find Park");

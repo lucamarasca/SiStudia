@@ -12,33 +12,21 @@ public class Background extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-    @Override
-    public void onCreate() {
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(i);
-        // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
-        // creazione del servizio
-        Toast.makeText(this, "The new Service was Created", Toast.LENGTH_LONG)
-                .show();
 
-    }
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent i = new Intent(this, MainActivity.class);
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(i);
-        // Visualizzo un Toast su schermo per avvisare l'utente dell'avvenuta
-        // inizializzazione del servizio.
-        Toast.makeText(this, " Service Started", Toast.LENGTH_LONG).show();
-        return START_STICKY;
+        getApplicationContext().startActivity(i);
     }
-    @Override
-    public void onDestroy() {
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(i);
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
 
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(i);
     }
 }

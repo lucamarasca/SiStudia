@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -38,6 +41,13 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //setto le notifiche in background
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        FirebaseInstanceId.getInstance().getToken();
+        startService(new Intent(this,Background.class));
+
+
         setContentView(R.layout.activity_sistudia_login);
         Button btnlogin = (Button) findViewById(R.id.btnLogin); //Prendo l'oggetto bottone login
         Button btn = (Button) findViewById(R.id.btnRecuperaPassword); //Prendo l'oggetto bottone recupa password
