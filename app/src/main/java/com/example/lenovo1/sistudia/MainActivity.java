@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
         startService(new Intent(this,Background.class));
 
 
-
         //dichiaro l'actionbar
         dl = (DrawerLayout) findViewById(R.id.Drawer);
         action_bar = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -243,105 +242,4 @@ CREATE TABLE users(
     UNIQUE KEY(Token));
 
 
-MIEI ORDINI
-
-
-
-<?php
-
-$count = 0;
-
-
-$arr = array();
-$arr["ordini"] = array();
-$arr["ordini"] [$count] = array();
-$arr["ordini"] [$count]["id_ordine"] = "1";
-$arr["ordini"] [$count]["nominativo"] = "idbelloaaaa";
-$arr["ordini"] [$count]["comune"] = "aaaaaaaa";
-$arr["ordini"] [$count]["provincia"] = "aaaaaaaa";
-$arr["ordini"] [$count]["indirizzo"] = "aaaaaaaaa";
-$arr["ordini"] [$count]["civico"] = "aaaaaaaa";
-$arr["ordini"] [$count]["stato_ordine"] = "aaaaaa";
-$arr["ordini"] [$count]["nominativo_alunno"] = "aaaaaaaaaa";
-$arr["ordini"] [$count]["data"] = "aaaaaaaaaa";
-$arr["ordini"] [$count]["id_stato_ordine"] = 1;
-
-$count++;
-$arr["ordini"] [$count]["id_ordine"] = "2";
-$arr["ordini"] [$count]["nominativo"] = "idbello";
-$arr["ordini"] [$count]["comune"] = "idbello";
-$arr["ordini"] [$count]["provincia"] = "idbello";
-$arr["ordini"] [$count]["indirizzo"] = "idbello";
-$arr["ordini"] [$count]["civico"] = "idbello";
-$arr["ordini"] [$count]["stato_ordine"] = "idbello";
-$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
-$arr["ordini"] [$count]["data"] = "idbello";
-$arr["ordini"] [$count]["id_stato_ordine"] = 3;
-
-$count++;
-$arr["ordini"] [$count]["id_ordine"] = "3";
-$arr["ordini"] [$count]["nominativo"] = "idbello";
-$arr["ordini"] [$count]["comune"] = "idbello";
-$arr["ordini"] [$count]["provincia"] = "idbello";
-$arr["ordini"] [$count]["indirizzo"] = "idbello";
-$arr["ordini"] [$count]["civico"] = "idbello";
-$arr["ordini"] [$count]["stato_ordine"] = "idbello";
-$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
-$arr["ordini"] [$count]["data"] = "idbello";
-$arr["ordini"] [$count]["id_stato_ordine"] = 2;
-
-$count++;
-$arr["ordini"] [$count]["id_ordine"] = "4";
-$arr["ordini"] [$count]["nominativo"] = "nome_libraio";
-$arr["ordini"] [$count]["comune"] = "idbello";
-$arr["ordini"] [$count]["provincia"] = "idbello";
-$arr["ordini"] [$count]["indirizzo"] = "idbello";
-$arr["ordini"] [$count]["civico"] = "idbello";
-$arr["ordini"] [$count]["stato_ordine"] = "idbello";
-$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
-$arr["ordini"] [$count]["data"] = "idbello";
-$arr["ordini"] [$count]["id_stato_ordine"] = 4;
-
-$count++;
-$arr["ordini"] [$count]["id_ordine"] = "5";
-$arr["ordini"] [$count]["nominativo"] = "idbello";
-$arr["ordini"] [$count]["comune"] = "idbello";
-$arr["ordini"] [$count]["provincia"] = "idbello";
-$arr["ordini"] [$count]["indirizzo"] = "idbello";
-$arr["ordini"] [$count]["civico"] = "idbello";
-$arr["ordini"] [$count]["stato_ordine"] = "idbello";
-$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
-$arr["ordini"] [$count]["data"] = "idbello";
-$arr["ordini"] [$count]["id_stato_ordine"] = 2;
-
-$count++;
-$arr["ordini"] [$count]["id_ordine"] = "6";
-$arr["ordini"] [$count]["nominativo"] = "idbello";
-$arr["ordini"] [$count]["comune"] = "idbello";
-$arr["ordini"] [$count]["provincia"] = "idbello";
-$arr["ordini"] [$count]["indirizzo"] = "idbello";
-$arr["ordini"] [$count]["civico"] = "idbello";
-$arr["ordini"] [$count]["stato_ordine"] = "idbello";
-$arr["ordini"] [$count]["nominativo_alunno"] = "idbello";
-$arr["ordini"] [$count]["data"] = "idbello";
-$arr["ordini"] [$count]["id_stato_ordine"] = 3;
-
-echo json_encode($arr);
-
-// @$ordini->ordine->$count->id_ordine = "idbello";
-// @$ordini->ordine->$count->nominativo = "Nominativo_Libraio";
-// @$ordini->ordine->$count->comune = "comune_libraio";
-// @$ordini->ordine->$count->provincia = "provincia_libraio";
-// @$ordini->ordine->$count->indirizzo = "indirizzo_libraio";
-// @$ordini->ordine->$count->civico = "civico_libraio";
-// @$ordini->ordine->$count->stato_ordine = "stato ordine";
-// @$ordini->ordine->$count->nominativo_alunno = "idbello";
-// @$ordini->ordine->$count->data = "data";
-
-
-
-// echo json_encode($ordini);
-
-
-?>
  */

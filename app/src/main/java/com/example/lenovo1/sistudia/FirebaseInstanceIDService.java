@@ -1,4 +1,5 @@
 package com.example.lenovo1.sistudia;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -8,6 +9,8 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+
+import static java.security.AccessController.getContext;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -24,10 +27,30 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("Token",token)
+                .add("Type","1") //Mi serve per capire se l'utente è loggato
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.1.10/Sistudia/register.php")
+                .url("http://192.168.1.129/iccs/sistudia_android/register.php")
+                .post(body)
+                .build();
+
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void registerToken2(String token) {
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Token",token)
+                .add("Type","2") //Mi serve per capire se l'utente è loggato
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://192.168.1.129/iccs/sistudia_android/register.php")
                 .post(body)
                 .build();
 

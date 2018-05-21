@@ -48,6 +48,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         startService(new Intent(this,Background.class));
 
 
+
         setContentView(R.layout.activity_sistudia_login);
         Button btnlogin = (Button) findViewById(R.id.btnLogin); //Prendo l'oggetto bottone login
         Button btn = (Button) findViewById(R.id.btnRecuperaPassword); //Prendo l'oggetto bottone recupa password
@@ -75,6 +76,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
                 RecuperaPassword();
             }
         });
+
     }
 
     //Metodo che prende i dati delle textview le elabora per poi chiamare il metodo che invia i dati al server
