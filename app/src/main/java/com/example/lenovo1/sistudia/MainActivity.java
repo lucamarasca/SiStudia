@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
             getSupportActionBar().setTitle("I miei Ordini");
             Parametri.notifica = false;
         }
+
         //Inizializzo la variabile del navigationview
         navigationView = findViewById(R.id.navigation_view);
 

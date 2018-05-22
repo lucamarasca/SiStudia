@@ -3,7 +3,13 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="navigation_drawer_open">Apri</string>
     <string name="navigation_drawer_close">Chiudi</string>
-
+    <string name="versione">V: 0.0.1</string>
+    <string name="info_ritiro">
+        Il codice ritiro scritto sotto, è valido per il ritiro di un solo libro o di un intero ordine.
+        Di conseguenza, lo stesso codice non può essere utilizzato più volte.
+        Se si verificano problemi inerenti al codice ritiro vi inviato a cliccare sul bottone "rigenera codice" e tentare nuovamente.
+        Per essere abilitati al ritiro dei libri, basterà recarsi al libraio dove è stato fatto l ordine e fargli inserire il codice ritiro.
+    </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

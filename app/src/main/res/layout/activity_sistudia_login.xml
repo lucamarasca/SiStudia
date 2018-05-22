@@ -42,19 +42,28 @@
                     android:textColor="@color/grigio_scuro"
                     android:textSize="25dp"
                     android:textStyle="bold" />
-
                 <TextView
-                    android:id="@+id/simeal_version"
+                    android:id="@+id/tvAppsName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/grigio_scuro"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/sistudia_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvAppName"
                     android:layout_marginTop="5dp"
-                    android:text="V "
+                    android:text="@string/versione"
                     android:textAlignment="center"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/grigio_scuro"
                     android:textStyle="bold"
-                    android:visibility="invisible" />
+                     />
 
             </RelativeLayout>
 
@@ -80,14 +89,13 @@
                     android:textStyle="bold" />
 
 
-
                 <AutoCompleteTextView
                     android:id="@+id/etUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:hint="username"
+                    android:hint="Username"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -105,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_toLeftOf="@+id/iv_show_pass"
-                        android:hint="password"
+                        android:hint="Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true"

@@ -13,6 +13,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack {
         if (Parametri.ordinieffettutati != null) {
             TextView[] viewPrenotazioni = new TextView[Parametri.ordinieffettutati.size()];
             TextView[] viewPrenotazioniData = new TextView[Parametri.ordinieffettutati.size()];
+            ImageView[] viewLinea = new ImageView[Parametri.ordinieffettutati.size()];
 
             View linearLayout = view.findViewById(R.id.prenotazioni);
 
@@ -54,25 +56,28 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack {
                 ordine += "Comune Residenza Libraio: " + Parametri.ordinieffettutati.get(i).getComune() + "\n";
                 ordine += "Indirizzo Libraio: " + Parametri.ordinieffettutati.get(i).getIndirizzo() + "\n";
                 ordine += "Nome alunno: " + Parametri.ordinieffettutati.get(i).getNome_alunno() + "\n";
-                ordine += "Stato Ordine: " + Parametri.ordinieffettutati.get(i).getStato_ordine() + "\n";
+                ordine += "Stato Ordine: " + Parametri.ordinieffettutati.get(i).getStato_ordine() ;
                 viewPrenotazioni[i] = new TextView(view.getContext());
                 viewPrenotazioni[i].setText(ordine);
                 viewPrenotazioni[i].setId(i);
-                viewPrenotazioni[i].setBackgroundResource(R.drawable.background_ordini);
-                viewPrenotazioni[i].setPaddingRelative(4, 8, 4, 8);
-                viewPrenotazioni[i].setTextSize(19);
-                viewPrenotazioni[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                viewPrenotazioni[i].setTextSize(17);
+                viewPrenotazioni[i].setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                 viewPrenotazioni[i].setTextColor(Color.BLACK);
                 viewPrenotazioniData[i] = new TextView(view.getContext());
                 viewPrenotazioniData[i].setText(Parametri.ordinieffettutati.get(i).getData());
-                viewPrenotazioniData[i].setPaddingRelative(200, 8, 4, 8);
+                viewPrenotazioniData[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                viewLinea[i] = new ImageView(view.getContext());
+                viewLinea[i].setImageResource(R.drawable.separatore);
+                viewLinea[i].setMinimumHeight(5);
+
+
                 LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
-                param.setMargins(0, 0, 0, 32);
 
-                viewPrenotazioni[i].setLayoutParams(param);
+
+
 
                 //Setto la funzione da chiamare per mostrare i dettagli della prenotazione
                     viewPrenotazioni[i].setOnClickListener(new View.OnClickListener() {
@@ -116,6 +121,7 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack {
 
                 ((LinearLayout) linearLayout).addView(viewPrenotazioni[i]);
                 ((LinearLayout) linearLayout).addView(viewPrenotazioniData[i]);
+                ((LinearLayout) linearLayout).addView(viewLinea[i]);
             }
         }
         else
