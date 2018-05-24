@@ -187,13 +187,13 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
         Connessione conn = new Connessione(postData, "POST");
         conn.addListener(this);
         //In Parametri.IP c'è la path a cui va aggiunta il nome della pagina.php
-        conn.execute(Parametri.IP + "/assegna_utente_notifiche.php");
+        conn.execute(Parametri.IP + "/Sistudia_assegna_utente_notifiche.php");
     }
 
 
     //Metodo in cui è contenuta la risposta del server
     @Override
     public void ResultResponse(String responseCode, String result) {
-            Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
+
     }
 }
