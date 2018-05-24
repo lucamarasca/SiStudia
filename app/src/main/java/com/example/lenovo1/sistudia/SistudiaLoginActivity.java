@@ -57,6 +57,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         btnBackdoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Parametri.id = "2";
                 Backdoor();
             }
         });

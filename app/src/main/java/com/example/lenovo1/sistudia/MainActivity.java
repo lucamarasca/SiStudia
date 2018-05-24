@@ -52,9 +52,13 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Setto le notifiche in background
+
         FirebaseMessaging.getInstance().subscribeToTopic("test");
-        FirebaseInstanceId.getInstance().getToken();
+        //Prendo il token associato al dispositivo e aggiungo l'id utente al DB (Mi server per le notifiche)
+        Parametri.Token = FirebaseInstanceId.getInstance().getToken();
+        RegistraUtente(Parametri.Token);
+
+        //Avvio i servizi della app in background; in questo modo sono in grado di ricevere le notifiche anche se l'applicazione viene rimossa dallo stack.
         startService(new Intent(this,Background.class));
 
 
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
         }else
         {
             //Apro il fragment Dei miei ordini
-            getOrdini();
+           // getOrdini();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.main_conteiner, new SistudiaFragmentMieiOrdini());
             fragmentTransaction.commit();
@@ -168,16 +172,12 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
                 super.onBackPressed();
         }
     }
-
-    public void getOrdini(){
-        // Avverto l'utente del tentativo di invio dei dati di login al server
-        caricamento = ProgressDialog.show(this, "Cerco i tuoi ordini!",
-                "Connessione con il server in corso...", true);
-        caricamento.show();
-
+    public void RegistraUtente(String token)
+    {
         JSONObject postData = new JSONObject();
         try {
-            postData.put("id_utente", Parametri.id);
+            postData.put("Token", token);
+            postData.put("id_utente",Parametri.id);
 
         } catch (Exception e) {
             caricamento.dismiss();
@@ -187,60 +187,13 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
         Connessione conn = new Connessione(postData, "POST");
         conn.addListener(this);
         //In Parametri.IP c'è la path a cui va aggiunta il nome della pagina.php
-        conn.execute(Parametri.IP + "/SistudiaMieiOrdiniAndroid.php");
-
+        conn.execute(Parametri.IP + "/assegna_utente_notifiche.php");
     }
+
 
     //Metodo in cui è contenuta la risposta del server
     @Override
     public void ResultResponse(String responseCode, String result) {
-        String message;
-
-        //Se L'utente non viene trova all' interno del DB
-        if (result == null || result.equals("null") || result.equals("\n\n\n"))
-        {
-            message = "Nessun Ordine.";
-            caricamento.dismiss();
-            return;
-        }
-        ArrayList<Ordine> par = new ArrayList<>();
-        // Estraggo i miei dati restituiti dal server
-        try {
-
-            JSONObject jsonconvert = new JSONObject(result);
-            JSONArray ordini = jsonconvert.getJSONArray("ordini");
-            Parametri.ordinieffettutati = new ArrayList<>();
-
-            for (int i = 0; i < ordini.length(); i++)
-            {
-                par.add(new Ordine(ordini.getJSONObject(i).toString()));
-            }
-
-        } catch (Exception e) {
-            message = "Errore di risposta del server.";
-
-            caricamento.dismiss();
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            return;
-        }
-        Parametri.ordinieffettutati = par;
-        caricamento.dismiss();
-
-
+            Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
     }
 }
-
-/* DATABASE
-CREATE DATABASE FCM;
-
-USE FCM;
-
-CREATE TABLE users(
-    id int (20) NOT NULL AUTO_INCREMENT,
-    Token varchar(200) NOT NULL,
-
-    PRIMARY KEY(id),
-    UNIQUE KEY(Token));
-
-
- */
