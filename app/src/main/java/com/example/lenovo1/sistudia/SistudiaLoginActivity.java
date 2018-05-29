@@ -1,16 +1,26 @@
 package com.example.lenovo1.sistudia;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
+import android.provider.SyncStateContract;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +43,21 @@ import java.security.NoSuchAlgorithmException;
 
 import static java.lang.System.in;
 
-public class SistudiaLoginActivity extends AppCompatActivity implements  ConnessioneListener {
+public class SistudiaLoginActivity extends AppCompatActivity implements  ConnessioneListener ,View.OnTouchListener{
 
     private ProgressDialog caricamento = null;  //Progress dialog di caricamento
+    private int etPasswordCursorPosition;
+    private EditText password;
+    private TextView username;
+    private ImageView iv_show_pass;
+    private SharedPreferences sharedPreferences;
+    private CheckBox checkCredenziali;
+    boolean carica = false;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         //setto le notifiche in background
@@ -47,12 +65,19 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         FirebaseInstanceId.getInstance().getToken();
         startService(new Intent(this,Background.class));
 
-
-
         setContentView(R.layout.activity_sistudia_login);
+
+
         Button btnlogin = (Button) findViewById(R.id.btnLogin); //Prendo l'oggetto bottone login
         Button btn = (Button) findViewById(R.id.btnRecuperaPassword); //Prendo l'oggetto bottone recupa password
         Button btnBackdoor = (Button) findViewById(R.id.backdoor);
+        iv_show_pass = (ImageView) findViewById(R.id.iv_show_pass);
+        username = (TextView) findViewById(R.id.etUsername);
+        password = (EditText) findViewById(R.id.password);
+        //Prendo i dati salvati dall' utente in base alle sue scelte (Memorizza credenziali, impostazioni ecc...)
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        checkCredenziali = (CheckBox) findViewById(R.id.checkCredenziali);
+
         //Se clicclo il bottone "Login", chiamo la funzione Login()
         btnBackdoor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +102,44 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
                 RecuperaPassword();
             }
         });
+        //Se tengo premuto l'icona dell' occhio mostra la password in chiaro
+        iv_show_pass.setOnTouchListener(this) ;
+        //Listner che viene chiamato quando clicco sulla checkbox
+        checkCredenziali.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("SAVE_CREDENTIALS", isChecked);
+                if(!isChecked)
+                {
+                    editor.putString("USERNAME", "");
+                    editor.putString("PASSWORD", "");
+                }
+                else
+                {
+                    if (!carica) {
+                        String user = username.getText().toString();
+                        editor.putString("USERNAME", username.getText().toString());
+                        editor.putString("PASSWORD", password.getText().toString());
+                    }
+                }
+                editor.apply();
+            }
+        });
+        //Carico i dati salvati dell' utente
+        if(sharedPreferences.getBoolean("SAVE_CREDENTIALS", false))
+        {
+            Parametri.notifica = sharedPreferences.getBoolean("NOTIFICA",true);
+            carica = true;
+            checkCredenziali.setChecked(true);
+            String user=sharedPreferences.getString("USERNAME", "");
+            String pass=sharedPreferences.getString("PASSWORD", "");
+            username.setText(user);
+            password.setText(pass);
+            carica = false;
+        }
+        else
+            checkCredenziali.setChecked(false);
 
     }
 
@@ -157,7 +220,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         if (result == null || result.equals("null") || result.equals("\n\n\n"))
         {
             message = "Utente non trovato.";
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            username.setError(message);
             caricamento.dismiss();
             return;
         }
@@ -193,6 +256,34 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
     private void Backdoor ()
     {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+    }
+
+    //Metodo che viene chiamato quando tocco lo schermo
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        if(v.getId()==R.id.iv_show_pass)
+        {
+            etPasswordCursorPosition=password.getSelectionStart();
+            switch(event.getAction())
+            {
+                case MotionEvent.ACTION_UP:
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setSelection(etPasswordCursorPosition);
+                    break;
+                case MotionEvent.ACTION_DOWN:
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setSelection(etPasswordCursorPosition);
+                    break;
+            }
+            return true;
+        }
+
+        return false;
+    }
+    @Override
+    public void onBackPressed() {
         finish();
     }
 }

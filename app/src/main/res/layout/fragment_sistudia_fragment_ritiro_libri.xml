@@ -74,6 +74,7 @@ tools:context=".SistudiaFragmentRitiroLibri">
             android:text="Codice ritiro:"
             android:textSize="18dp"
             android:textColor="#000000"
+            android:background="@color/verde_switch"
            />
 
         <Button
@@ -87,8 +88,9 @@ tools:context=".SistudiaFragmentRitiroLibri">
             android:text="Rigenera Codice  "
             android:drawableLeft="@drawable/icona_refresh"
             android:textSize="12dp"
-
-            style="@style/tema_menu"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
            />
 
 

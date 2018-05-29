@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_alignParentTop="false"
-    android:background="@drawable/headerbg"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    style="@style/tema_menu">
 
 
     <LinearLayout

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.ComponentCallbacks2;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -64,26 +65,20 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
 
         //dichiaro l'actionbar
         dl = (DrawerLayout) findViewById(R.id.Drawer);
+
         action_bar = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
         dl.addDrawerListener(action_bar);
         action_bar.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (Parametri.notifica == false) {
-            //Apro il fragment Home
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.main_conteiner, new SistudiaMainFragment());
-            fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Home");
-        }else
-        {
-            //Apro il fragment Dei miei ordini
-           // getOrdini();
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.main_conteiner, new SistudiaFragmentMieiOrdini());
-            fragmentTransaction.commit();
-            getSupportActionBar().setTitle("I miei Ordini");
-            Parametri.notifica = false;
-        }
+
+        //Apro il fragment Home
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_conteiner, new SistudiaMainFragment());
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setIcon(R.drawable.icona_home);
+
 
         //Inizializzo la variabile del navigationview
         navigationView = findViewById(R.id.navigation_view);

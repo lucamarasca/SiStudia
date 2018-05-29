@@ -16,16 +16,16 @@ public class Background extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getApplicationContext().startActivity(i);
+        Intent i = new Intent(getApplicationContext(), FirebaseMessagingService.class);
+        i.setAction("start");
+        startService(i);
     }
 
     @Override
     public void onDestroy()
     {
         super.onDestroy();
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        Intent i = new Intent(getApplicationContext(), SistudiaLoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getApplicationContext().startActivity(i);
     }
