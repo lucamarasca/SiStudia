@@ -77,7 +77,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         //Prendo i dati salvati dall' utente in base alle sue scelte (Memorizza credenziali, impostazioni ecc...)
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         checkCredenziali = (CheckBox) findViewById(R.id.checkCredenziali);
-
+        Parametri.notifica = sharedPreferences.getBoolean("NOTIFICA", true);
         //Se clicclo il bottone "Login", chiamo la funzione Login()
         btnBackdoor.setOnClickListener(new View.OnClickListener() {
             @Override

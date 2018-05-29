@@ -4,7 +4,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@drawable/background_impostazioni"
 tools:context=".SistudiaFragmentInformazioni">
 
 
@@ -12,22 +11,105 @@ tools:context=".SistudiaFragmentInformazioni">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_informazioni"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+        <ImageView
             android:layout_marginTop="10dp"
-            android:textSize="14dp"
-            android:text="Versione app: 0.0.1\nIndirizzo: Via Tommaso de Luca,38 62024 Matelica (MC)\nTelefono: + 39 0737.85208\nFax: + 39 Fax 0737.760210\nEmail: info@iccs.it\n\nCopyright © ICCS 2018"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="173dp"
+            android:src="@drawable/iccs"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/linea1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/separatore"
+            />
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="           073785208"
+            android:textColor="@color/nero"
+            android:drawableLeft="@drawable/phone"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/linea2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/separatore"
+            />
+        <TextView
+            android:id="@+id/fax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="           0737.760210"
+            android:textColor="@color/nero"
+            android:drawableLeft="@drawable/fax"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/linea3"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/separatore"
+            />
+        <TextView
+            android:id="@+id/mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="           info@iccs.it"
+            android:textColor="@color/nero"
+            android:drawableLeft="@drawable/mail"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/linea4"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/separatore"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="173dp"
+            android:src="@drawable/satellite"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/linea5"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/separatore"
+            />
+        <TextView
+            android:id="@+id/addres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="           Via Tommaso de Luca,38 62024 Matelica (MC)"
+            android:textColor="@color/nero"
+            android:drawableLeft="@drawable/address"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/linea6"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/separatore"
+            />
 
-    </android.support.constraint.ConstraintLayout>
+
+
+    </LinearLayout>
 
 
 

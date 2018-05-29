@@ -72,7 +72,7 @@ public class Detail_ordine extends FragmentWithOnBack {
         id_prentoazione.setTextColor(Color.BLACK);
 
         StepView stepView = view.findViewById(R.id.step_view);
-
+        stepView.clearAnimation();
         stepView.getState()
                 .animationType(StepView.ANIMATION_CIRCLE)
                 // You should specify only stepsNumber or steps array of strings.
@@ -86,13 +86,15 @@ public class Detail_ordine extends FragmentWithOnBack {
                 }})
                 // You should specify only steps number or steps array of strings.
                 // In case you specify both steps array is chosen.
-                .stepsNumber(4)
-                .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .animationDuration(getResources().getInteger(android.R.integer.config_longAnimTime))
+                .doneStepMarkColor(getResources().getColor(R.color.bianco))
+                .doneCircleColor(getResources().getColor(R.color.verde_chiaro))
                 // other state methods are equal to the corresponding xml attributes
                 .commit();
 
-
+        stepView.done(true);
         stepView.go(id_stato_ordine,true);
+
         return view;
     }
 

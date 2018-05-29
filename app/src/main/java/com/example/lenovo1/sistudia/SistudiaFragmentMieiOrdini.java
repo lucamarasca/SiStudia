@@ -50,7 +50,7 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack {
             ImageView[] viewLinea = new ImageView[Parametri.ordinieffettutati.size()];
 
             View linearLayout = view.findViewById(R.id.prenotazioni);
-
+            int numero = 0;
             for (int i = 0; i < Parametri.ordinieffettutati.size(); i++) {
                 String ordine = "Nome Lirabio: " + Parametri.ordinieffettutati.get(i).getNominativo_libraio() + "\n";
                 ordine += "Comune Residenza Libraio: " + Parametri.ordinieffettutati.get(i).getComune() + "\n";
@@ -69,8 +69,11 @@ public class SistudiaFragmentMieiOrdini extends FragmentWithOnBack {
                 viewLinea[i] = new ImageView(view.getContext());
                 viewLinea[i].setImageResource(R.drawable.separatore);
                 viewLinea[i].setMinimumHeight(5);
-
-
+                if (numero % 2 == 0) {
+                    viewPrenotazioni[i].setBackgroundColor(getResources().getColor(R.color.grigio_chiario));
+                    viewPrenotazioniData[i].setBackgroundColor(getResources().getColor(R.color.grigio_chiario));
+                }
+                numero ++;
                 LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT

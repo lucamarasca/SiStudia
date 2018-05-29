@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="140dp"
     android:layout_alignParentTop="false"
     android:orientation="vertical"
     android:weightSum="1"
@@ -16,12 +16,15 @@
         android:layout_centerInParent="true"
 
         android:orientation="vertical">
-
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher"/>
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:text="Username: "
             android:textColor="#ffffff"
             android:textSize="14sp"
@@ -31,7 +34,6 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:text="e-mail: "
             android:textColor="#ffffff"
@@ -42,7 +44,6 @@
             android:id="@+id/cellulare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:text="cellulare: "
             android:textColor="#ffffff"
