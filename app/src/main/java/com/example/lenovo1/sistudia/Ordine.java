@@ -2,22 +2,23 @@ package com.example.lenovo1.sistudia;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class Ordine {
     String id = null;
-     String nome_alunno = null;
-     String stato_ordine = null;
-     String civico = null;
-     String indirizzo = null;
+    String nome_alunno = null;
+    String stato_ordine = null;
+    String civico = null;
+    String indirizzo = null;
     String provincia = null;
-     String nominativo_libraio = null;
-   String comune = null;
-     String data = null;
-     int id_stato_ordine ;
+    String nominativo_libraio = null;
+    String comune = null;
+    String data = null;
+    int id_stato_ordine ;
+    static List<Libro> libri = null;
 
     // Costruttore ordine da stringa formattata in json
     public Ordine(String JSonobj)throws Exception {
-
-
         // Estraggo l'ordine
         JSONObject jobj = new JSONObject(JSonobj);
         this.id = jobj.getString("id_ordine");

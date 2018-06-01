@@ -72,11 +72,12 @@ public class SistudiaFragmentRitiroLibri extends FragmentWithOnBack implements  
         Connessione conn = new Connessione(postData, "POST");
         conn.addListener(this);
         //In Parametri.IP c'è la path a cui va aggiunta il nome della pagina.php
-        conn.execute(Parametri.IP + "/SistudiaAggiornaCodiceSegreto.php");
+        conn.execute(Parametri.IP + "/SistudiaConfermaCodice.php");
     }
 
     @Override
     public void ResultResponse(String responseCode, String result) {
-
+        String resultt = result;
+        String response = responseCode;
     }
 }
