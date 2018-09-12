@@ -70,7 +70,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
 
         Button btnlogin = (Button) findViewById(R.id.btnLogin); //Prendo l'oggetto bottone login
         Button btn = (Button) findViewById(R.id.btnRecuperaPassword); //Prendo l'oggetto bottone recupa password
-        Button btnBackdoor = (Button) findViewById(R.id.backdoor);
+
         iv_show_pass = (ImageView) findViewById(R.id.iv_show_pass);
         username = (TextView) findViewById(R.id.etUsername);
         password = (EditText) findViewById(R.id.password);
@@ -79,13 +79,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         checkCredenziali = (CheckBox) findViewById(R.id.checkCredenziali);
         Parametri.notifica = sharedPreferences.getBoolean("NOTIFICA", true);
         //Se clicclo il bottone "Login", chiamo la funzione Login()
-        btnBackdoor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Parametri.id = "2";
-                Backdoor();
-            }
-        });
+
 
         //Se clicclo il bottone "Login", chiamo la funzione Login()
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -253,11 +247,7 @@ public class SistudiaLoginActivity extends AppCompatActivity implements  Conness
         finish();
     }
 
-    private void Backdoor ()
-    {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
-    }
+
 
     //Metodo che viene chiamato quando tocco lo schermo
     @Override
