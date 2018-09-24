@@ -1,6 +1,7 @@
 package com.example.lenovo1.sistudia;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentCallbacks2;
 import android.content.ContextWrapper;
@@ -189,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements ConnessioneListen
     //Metodo in cui è contenuta la risposta del server
     @Override
     public void ResultResponse(String responseCode, String result) {
-
+        int x = 0;
+        x++;
     }
 }

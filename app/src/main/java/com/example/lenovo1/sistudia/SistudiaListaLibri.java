@@ -37,13 +37,13 @@ public class SistudiaListaLibri extends FragmentWithOnBack {
         // Creo delle view dinamiche per scrivere dentro gli ordini
         View view = inflater.inflate(R.layout.fragment_sistudia_fragment_miei_ordini, container, false);
         if (Parametri.ordinieffettutati != null) {
-            TextView[] viewLibri = new TextView[Parametri.ordinieffettutati.size()];
-            TextView[] viewLibriData = new TextView[Parametri.ordinieffettutati.size()];
-            ImageView[] viewLinea = new ImageView[Parametri.ordinieffettutati.size()];
+            TextView[] viewLibri = new TextView[Ordine.libri.size()];
+            TextView[] viewLibriData = new TextView[Ordine.libri.size()];
+            ImageView[] viewLinea = new ImageView[Ordine.libri.size()];
 
             View linearLayout = view.findViewById(R.id.prenotazioni);
             int numero = 0;
-            for (int i = 0; i < Parametri.ordinieffettutati.size(); i++) {
+            for (int i = 0; i < Ordine.libri.size(); i++) {
                 String libro = "Titolo: " + Ordine.libri.get(i).getTitolo() + "\n";
                 libro += "Autore: " + Ordine.libri.get(i).getAutore() + "\n";
                 libro += "Casa Editrice: " + Ordine.libri.get(i).getCasa_editrice() + "\n";
@@ -72,7 +72,7 @@ public class SistudiaListaLibri extends FragmentWithOnBack {
                 );
 
 
-                ((LinearLayout) linearLayout).addView( viewLibri[i]);
+                ((LinearLayout) linearLayout).addView(viewLibri[i]);
                 ((LinearLayout) linearLayout).addView(viewLibriData[i]);
                 ((LinearLayout) linearLayout).addView(viewLinea[i]);
             }

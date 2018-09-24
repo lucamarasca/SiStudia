@@ -191,6 +191,8 @@ public class Detail_ordine extends FragmentWithOnBack implements ConnessioneList
         }
         Ordine.libri = par;
         caricamento.dismiss();
+        //passo le informazioni relative alla mia prenotazione
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Lista Libri");
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
